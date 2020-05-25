@@ -1,46 +1,62 @@
-.mainContainer {
-  background-color: #232c3b;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  font-size: calc(10px + 2vmin);
-  color: white;
-  border: 1px solid red;
+* {
+  text-decoration: none;
 }
 
-.header {
-  min-height: 15vh;
-  border: 1px solid red;
-}
+@media only screen and (max-width: 500px) {
+  /* start of phone styles */
 
-.board {
-  min-height: 20vh;
-  border: 1px solid red;
-  background-color: white;
-  color: black;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+  .mainContainer {
+    background-color: #232c3b;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    font-size: calc(10px + 2vmin);
+    color: white;
+    border: 1px solid red;
+  }
 
-.bills {
-  min-height: 40vh;
-  border: 1px solid red;
-}
+  .header {
+    min-height: 5vh;
+    border: 1px solid red;
+  }
 
-.content {
-  border: 1px solid yellow;
-  text-align: left;
-}
+  .board {
+    min-height: 40vh;
+    border: 1px solid red;
+    background-color: white;
+    color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 
-.content li {
-  border: 1px solid green;
-}
+  .categories {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    border: 1px solid rgb(39, 255, 10);
+  }
 
-.footer {
-  position: fixed;
-  bottom: 0px;
-  width: 100vw;
-  min-height: 10vh;
-  border: 1px solid red;
+  .categories span h3 {
+    margin: 0;
+    font-size: 1.2rem;
+    border: 1px solid rgb(39, 255, 10);
+  }
+
+  .billsContainer {
+    border: 1px solid red;
+  }
+
+  .content {
+    border: 1px solid yellow;
+    text-align: left;
+  }
+
+  .content li {
+    border: 1px solid green;
+  }
+
+  .footer {
+    border: 1px solid red;
+  }
 }
