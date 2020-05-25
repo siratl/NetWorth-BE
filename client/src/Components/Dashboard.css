@@ -1,6 +1,6 @@
 .mainContainer {
   background-color: #232c3b;
-  min-height: 120vh;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   font-size: calc(10px + 2vmin);
@@ -24,8 +24,17 @@
 }
 
 .bills {
-  min-height: 30vh;
+  min-height: 40vh;
   border: 1px solid red;
+}
+
+.content {
+  border: 1px solid yellow;
+  text-align: left;
+}
+
+.content li {
+  border: 1px solid green;
 }
 
 .footer {
