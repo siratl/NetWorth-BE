@@ -1,41 +1,30 @@
-.App {
-  text-align: center;
-}
+@media only screen and (max-width: 500px) {
+  /* start of phone styles */
 
-.warnOff {
-  display: none;
-}
-
-.warnOn {
-  color: red;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+  .App {
+    text-align: center;
   }
-}
 
-.App-header {
-  background-color: #232c3b;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+  .warnOff {
+    display: none;
   }
-  to {
-    transform: rotate(360deg);
+
+  .warnOn {
+    color: red;
+  }
+
+  .App-header {
+    background-color: #232c3b;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: white;
+  }
+
+  .App-link {
+    color: #61dafb;
   }
 }
