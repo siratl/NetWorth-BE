@@ -21,11 +21,12 @@
   }
 
   .board {
-    min-height: 40vh;
+    min-height: 35vh;
     border: 1px solid red;
     background-color: white;
     color: black;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
   }

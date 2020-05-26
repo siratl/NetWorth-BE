@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { Button } from 'reactstrap';
-import './Dashboard.css';
+import '../Dashboard/Dashboard.css';
 
 function Dashboard() {
   return (
     <div className='mainContainer'>
-      <div className='header'>Header</div>
+      <div className='header'>Net-Worth App</div>
       <div className='board'>
         <h2>Net Worth</h2>
+        <h5>$0</h5>
       </div>
       <div className='categories'>
         <span className='income'>
