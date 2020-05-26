@@ -4,6 +4,8 @@ import { Route } from 'react-router-dom';
 import Dashboard from './Components/Dashboard/Dashboard.js';
 import Bills from './Components/Bills/Bills.js';
 import Income from './Components/Income/Income.js';
+import Budget from './Components/Budget/Budget.js';
+import Bank from './Components/Bank/Bank.js';
 import Investments from './Components/Investments/Investments.js';
 
 function App() {
@@ -12,10 +14,12 @@ function App() {
 
   return (
     <div className='App'>
-      <Route path='/' component={Dashboard} />
-      <Route exact path='/bills' component={Bills} />
-      <Route exact path='/income' component={Income} />
-      <Route exact path='/investments' component={Investments} />
+      <Route exact path='/' component={Dashboard} />
+      <Route path='/bills' component={Bills} />
+      <Route path='/budget' component={Budget} />
+      <Route path='/bank' component={Bank} />
+      <Route path='/income' component={Income} />
+      <Route path='/investments' component={Investments} />
     </div>
   );
 }
