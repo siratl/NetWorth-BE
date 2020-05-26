@@ -3,10 +3,14 @@ import { Button } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import '../Dashboard/Dashboard.css';
 
-function Dashboard() {
+function Dashboard(props) {
+  const { push } = props.history;
+
   return (
     <div className='mainContainer'>
-      <div className='header'>Net-Worth App</div>
+      <div className='header'>
+        <h1>Net-Worth App</h1>
+      </div>
       <div className='board'>
         <h2>Net Worth</h2>
         <h5>$0</h5>
@@ -25,14 +29,33 @@ function Dashboard() {
           <Link to='/budget'>0</Link>
         </span>
       </div>
-      <div className='billsContainer'>
-        <Button className='bills' color='info' size='lg' block>
+
+      <div className='navContainer'>
+        <Button
+          onClick={() => push('/bills')}
+          className='bills'
+          color='info'
+          size='lg'
+          block
+        >
           Bills
         </Button>
-        <Button className='investments' color='info' size='lg' block>
+        <Button
+          onClick={() => push('/investments')}
+          className='investments'
+          color='info'
+          size='lg'
+          block
+        >
           Investments
         </Button>
-        <Button className='bank' color='info' size='lg' block>
+        <Button
+          onClick={() => push('/bank')}
+          className='bank'
+          color='info'
+          size='lg'
+          block
+        >
           Bank
         </Button>
       </div>
