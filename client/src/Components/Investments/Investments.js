@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 
-function Income() {
+function Investments() {
   return (
     <div>
-      <h2>Income</h2>
+      <h2>Investments</h2>
     </div>
   );
 }
 
-export default Income;
+export default Investments;
