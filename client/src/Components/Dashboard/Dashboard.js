@@ -17,16 +17,19 @@ function Dashboard(props) {
       </div>
       <div className='categories'>
         <span className='income'>
-          <h3>Income</h3>
-          <Link to='/income'>0</Link>
+          <Link to='/income'>
+            <h3>Income</h3>$0
+          </Link>
         </span>
         <span className='cash'>
-          <h3>Cash</h3>
-          <Link to='/bank'>0</Link>
+          <Link to='/bank'>
+            <h3>Cash</h3>$0
+          </Link>
         </span>
         <span className='budget'>
-          <h3>Budget</h3>
-          <Link to='/budget'>0</Link>
+          <Link to='/budget'>
+            <h3>Budget</h3>$0
+          </Link>
         </span>
       </div>
 
