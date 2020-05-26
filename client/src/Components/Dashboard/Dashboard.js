@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Button } from 'reactstrap';
+import { Link } from 'react-router-dom';
 import '../Dashboard/Dashboard.css';
 
 function Dashboard() {
@@ -13,15 +14,15 @@ function Dashboard() {
       <div className='categories'>
         <span className='income'>
           <h3>Income</h3>
-          <a href='#'>0</a>
+          <Link to='/income'>0</Link>
         </span>
         <span className='cash'>
           <h3>Cash</h3>
-          <a href='#'>0</a>
+          <Link to='/bank'>0</Link>
         </span>
         <span className='budget'>
           <h3>Budget</h3>
-          <a href='#'>0</a>
+          <Link to='/budget'>0</Link>
         </span>
       </div>
       <div className='billsContainer'>
