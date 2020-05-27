@@ -46,7 +46,7 @@
 
   .board {
     min-height: 35vh;
-    border: 1px solid red;
+    border: 1px solid rgb(0, 255, 21);
     background-color: white;
     color: black;
     display: flex;
@@ -59,18 +59,29 @@
     display: flex;
     flex-direction: row;
     justify-content: space-around;
-    border: 1px solid rgb(39, 255, 10);
+    padding: 0.4rem 0;
   }
 
-  .categories span h3 {
+  .categories div h3 {
     margin: 0;
+    padding: -1rem;
     color: white;
     font-size: 1.2rem;
-    border: 1px solid rgb(39, 255, 10);
+  }
+
+  .categories div span {
   }
 
   .navContainer {
     border: 1px solid red;
+    padding: 0.3rem 0.5rem;
+  }
+
+  .navContainer Button {
+    font-weight: 400;
+    padding: 0.5rem 0;
+    font-size: 1.4rem;
+    box-shadow: 1px 0 5px rgb(0, 0, 0, 0.5);
   }
 
   .content {

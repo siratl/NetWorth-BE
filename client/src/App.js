@@ -9,6 +9,7 @@ import Bank from './Components/Bank/Bank.js';
 import Investments from './Components/Investments/Investments.js';
 import SideBar from './Components/Sidebar/SideBar.js';
 import Backdrop from './Components/Backdrop/Backdrop.js';
+import Auth from './Components/Auth/Auth.js';
 
 function App(props) {
   const [isSideBarOpen, setIsSideBarOpen] = useState(false);
@@ -82,6 +83,18 @@ function App(props) {
         path='/investments'
         render={(props) => (
           <Investments
+            {...props}
+            isSideBarOpen={isSideBarOpen}
+            sideBarToggle={sideBarToggle}
+          />
+        )}
+      />
+
+      <Route
+        sideBarToggle={sideBarToggle}
+        path='/login'
+        render={(props) => (
+          <Auth
             {...props}
             isSideBarOpen={isSideBarOpen}
             sideBarToggle={sideBarToggle}

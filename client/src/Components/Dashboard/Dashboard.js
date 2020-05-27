@@ -16,21 +16,24 @@ function Dashboard(props) {
         <h5>$0</h5>
       </div>
       <div className='categories'>
-        <span className='income'>
+        <div className='income'>
           <Link to='/income'>
-            <h3>Income</h3>$0
+            <h3>Income</h3>
+            <span>$0</span>
           </Link>
-        </span>
-        <span className='cash'>
+        </div>
+        <div className='cash'>
           <Link to='/bank'>
-            <h3>Cash</h3>$0
+            <h3>Cash</h3>
+            <span>$0</span>
           </Link>
-        </span>
-        <span className='budget'>
+        </div>
+        <div className='budget'>
           <Link to='/budget'>
-            <h3>Budget</h3>$0
+            <h3>Budget</h3>
+            <span>$0</span>
           </Link>
-        </span>
+        </div>
       </div>
 
       <div className='navContainer'>
