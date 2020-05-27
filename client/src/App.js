@@ -20,19 +20,19 @@ function App(props) {
     setIsSideBarOpen(false);
   };
 
-  let sideBar;
   let backdrop;
 
   if (isSideBarOpen) {
-    sideBar = <SideBar sideBarToggleClose={sideBarToggleClose} />;
     backdrop = <Backdrop sideBarToggleClose={sideBarToggleClose} />;
   }
 
   return (
     <div className='App'>
-      {sideBar}
+      <SideBar
+        isSideBarOpen={isSideBarOpen}
+        sideBarToggleClose={sideBarToggleClose}
+      />
       {backdrop}
-
       <Route exact path='/' component={Dashboard} />
       <Route
         path='/bills'

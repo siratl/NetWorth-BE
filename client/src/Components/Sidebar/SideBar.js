@@ -5,10 +5,15 @@ import { faAngleLeft } from '@fortawesome/free-solid-svg-icons';
 import './SideBar.css';
 
 function SideBar(props) {
-  const { sideBarToggleClose } = props;
+  const { sideBarToggleClose, isSideBarOpen } = props;
+
+  let sideBarClasses = 'sideBar';
+  if (isSideBarOpen) {
+    sideBarClasses = 'sideBar open';
+  }
 
   return (
-    <div className='sideBar'>
+    <div className={sideBarClasses}>
       <FontAwesomeIcon
         onClick={sideBarToggleClose}
         id='close'
