@@ -7,19 +7,87 @@ import Income from './Components/Income/Income.js';
 import Budget from './Components/Budget/Budget.js';
 import Bank from './Components/Bank/Bank.js';
 import Investments from './Components/Investments/Investments.js';
+import SideBar from './Components/Sidebar/SideBar.js';
+import Backdrop from './Components/Backdrop/Backdrop.js';
 
-function App() {
-  const [count, setCount] = useState(0);
-  const [warn, setWarn] = useState(false);
+function App(props) {
+  const [isSideBarOpen, setIsSideBarOpen] = useState(false);
+
+  const sideBarToggle = (ev) => {
+    setIsSideBarOpen(true);
+  };
+  const sideBarToggleClose = (ev) => {
+    setIsSideBarOpen(false);
+  };
+
+  let sideBar;
+  let backdrop;
+
+  if (isSideBarOpen) {
+    sideBar = <SideBar sideBarToggleClose={sideBarToggleClose} />;
+    backdrop = <Backdrop sideBarToggleClose={sideBarToggleClose} />;
+  }
 
   return (
     <div className='App'>
+      {sideBar}
+      {backdrop}
+
       <Route exact path='/' component={Dashboard} />
-      <Route path='/bills' component={Bills} />
-      <Route path='/budget' component={Budget} />
-      <Route path='/bank' component={Bank} />
-      <Route path='/income' component={Income} />
-      <Route path='/investments' component={Investments} />
+      <Route
+        path='/bills'
+        render={(props) => (
+          <Bills
+            {...props}
+            isSideBarOpen={isSideBarOpen}
+            sideBarToggle={sideBarToggle}
+          />
+        )}
+      />
+      <Route
+        sideBarToggle={sideBarToggle}
+        path='/budget'
+        render={(props) => (
+          <Budget
+            {...props}
+            isSideBarOpen={isSideBarOpen}
+            sideBarToggle={sideBarToggle}
+          />
+        )}
+      />
+      <Route
+        sideBarToggle={sideBarToggle}
+        path='/bank'
+        render={(props) => (
+          <Bank
+            {...props}
+            isSideBarOpen={isSideBarOpen}
+            sideBarToggle={sideBarToggle}
+          />
+        )}
+      />
+      <Route
+        sideBarToggle={sideBarToggle}
+        path='/income'
+        render={(props) => (
+          <Income
+            {...props}
+            isSideBarOpen={isSideBarOpen}
+            sideBarToggle={sideBarToggle}
+          />
+        )}
+      />
+      <Route
+        sideBarToggle={sideBarToggle}
+        path='/investments'
+        render={(props) => (
+          <Investments
+            {...props}
+            isSideBarOpen={isSideBarOpen}
+            sideBarToggle={sideBarToggle}
+          />
+        )}
+      />
     </div>
   );
 }
