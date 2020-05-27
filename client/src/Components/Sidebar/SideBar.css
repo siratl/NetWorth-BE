@@ -1,0 +1,44 @@
+.sideBar {
+  height: 100%;
+  box-shadow: 1px 0 7px rgb(0, 0, 0, 0.5);
+  background-color: #121822;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 70%;
+  z-index: 200;
+}
+
+.sideBar #close {
+  color: white;
+  position: absolute;
+  right: 15px;
+  top: 10px;
+  cursor: pointer;
+  font-size: 2.5rem;
+}
+
+.sideBarNav {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.sideBarNav #link {
+  font-size: 1.5rem;
+  color: white;
+  margin: 0.5rem 0;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid rgb(23, 162, 184);
+  border-radius: 5px;
+  /* background: rgb(23, 162, 184); */
+}
+.sideBarNav #link:last-child {
+  border-bottom: none;
+}
+
+.sideBarNav #link:hover {
+  color: rgb(23, 162, 184);
+  background: white;
+}

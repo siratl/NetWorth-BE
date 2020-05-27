@@ -1,8 +1,12 @@
 @media only screen and (max-width: 500px) {
   /* start of phone styles */
+  * {
+    box-sizing: border-box;
+  }
 
   .App {
     text-align: center;
+    height: 100%;
   }
 
   .warnOff {
