@@ -98,18 +98,18 @@
     margin: 0;
   }
 
+  .calendar {
+    border: 1px solid green;
+    margin: 0 auto 1rem auto;
+  }
+
   .add {
     border: 1px solid red;
     margin: 0 1rem 1rem 1rem;
   }
 
   #add-btn {
-    padding: 0.5rem 7rem;
     border: 1px solid red;
-  }
-
-  #add-btn-menu {
-    padding: 0.5rem 6.8rem;
   }
 
   .list {
@@ -125,9 +125,5 @@
 
   .content li {
     border: 1px solid green;
-  }
-
-  .footer {
-    border: 1px solid red;
   }
 }

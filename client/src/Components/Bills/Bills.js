@@ -1,11 +1,7 @@
 import React, { useState } from 'react';
-import {
-  ButtonDropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
-  Table,
-} from 'reactstrap';
+import Calendar from 'react-calendar';
+import 'react-calendar/dist/Calendar.css';
+import { Button, Table } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faHome,
@@ -17,9 +13,8 @@ function Bills(props) {
   const { push } = props.history;
   const { sideBarToggle, isSideBarOpen } = props;
 
-  const [dropdownOpen, setOpen] = useState(false);
-
-  const toggle = () => setOpen(!dropdownOpen);
+  const [date, setDate] = useState(new Date());
+  const onChange = () => setDate({ date });
 
   return (
     <div className='mainContainer'>
@@ -33,6 +28,7 @@ function Bills(props) {
         />
       </div>
 
+      {/* ----------------------- Totals ------------------ */}
       <div className='totals'>
         <span>
           Total Bills <p>$0</p>
@@ -42,21 +38,21 @@ function Bills(props) {
         </span>
       </div>
 
-      <div className='add'>
-        <ButtonDropdown block isOpen={dropdownOpen} toggle={toggle}>
-          <DropdownToggle block id='add-btn' caret color='info' size='lg'>
-            <FontAwesomeIcon icon={faPlusCircle} /> Add Bill
-          </DropdownToggle>
-          <DropdownMenu id='add-btn-menu'>
-            <DropdownItem>Add Bill</DropdownItem>
-            <DropdownItem divider />
-            <DropdownItem>Delete Bill</DropdownItem>
-          </DropdownMenu>
-        </ButtonDropdown>
+      {/* ----------------------- Calendar ------------------ */}
+      <div className='calendar'>
+        <Calendar onChange={onChange} value={date} />
       </div>
 
+      {/* ----------------------- Add Btn ------------------ */}
+      <div className='add'>
+        <Button id='add-btn' size='lg' block color='info'>
+          <FontAwesomeIcon icon={faPlusCircle} /> Add Bill
+        </Button>
+      </div>
+
+      {/* ------------------------ Table ----------------------------- */}
       <div className='list'>
-        <Table striped>
+        <Table striped size='sm'>
           <thead>
             <tr>
               <th>#</th>
@@ -87,6 +83,8 @@ function Bills(props) {
           </tbody>
         </Table>
       </div>
+      <br></br>
+      <br></br>
     </div>
   );
 }
