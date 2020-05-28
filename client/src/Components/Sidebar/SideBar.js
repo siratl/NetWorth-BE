@@ -20,19 +20,19 @@ function SideBar(props) {
         icon={faAngleLeft}
       />
       <nav className='sideBarNav'>
-        <NavLink id='link' to='bank'>
+        <NavLink onClick={sideBarToggleClose} id='link' to='bank'>
           <span>Bank</span>
         </NavLink>
-        <NavLink id='link' to='bills'>
+        <NavLink onClick={sideBarToggleClose} id='link' to='bills'>
           <span>Bills</span>
         </NavLink>
-        <NavLink id='link' to='budget'>
+        <NavLink onClick={sideBarToggleClose} id='link' to='budget'>
           <span>Budget</span>
         </NavLink>
-        <NavLink id='link' to='income'>
+        <NavLink onClick={sideBarToggleClose} id='link' to='income'>
           <span>Income</span>
         </NavLink>
-        <NavLink id='link' to='investments'>
+        <NavLink onClick={sideBarToggleClose} id='link' to='investments'>
           <span>Investments</span>
         </NavLink>
       </nav>

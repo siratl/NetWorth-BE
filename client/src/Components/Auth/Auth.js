@@ -1,12 +1,8 @@
 import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHome, faBars } from '@fortawesome/free-solid-svg-icons';
 import { Form, FormGroup, Label, Input, Button } from 'reactstrap';
 import './Auth.css';
 
 function Auth(props) {
-  const { sideBarToggle, isSideBarOpen } = props;
-
   return (
     <div className='mainContainer'>
       <div className='header'>
@@ -38,8 +34,8 @@ function Auth(props) {
       </Form>
 
       <div className='forgot'>
-        <a href=''>Forgot Password?</a>
-        <a href=''>Sign Up</a>
+        <a href='/'>Forgot Password?</a>
+        <a href='/'>Sign Up</a>
       </div>
     </div>
   );

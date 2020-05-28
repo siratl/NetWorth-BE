@@ -84,6 +84,40 @@
     box-shadow: 1px 0 5px rgb(0, 0, 0, 0.5);
   }
 
+  /* Bills CSS */
+  .totals {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 1rem 1rem;
+    border: 1px solid red;
+  }
+
+  .totals span p {
+    border: 1px solid red;
+    margin: 0;
+  }
+
+  .add {
+    border: 1px solid red;
+    margin: 0 1rem 1rem 1rem;
+  }
+
+  #add-btn {
+    padding: 0.5rem 7rem;
+    border: 1px solid red;
+  }
+
+  #add-btn-menu {
+    padding: 0.5rem 6.8rem;
+  }
+
+  .list {
+    background: white;
+  }
+
+  /* End */
+
   .content {
     border: 1px solid yellow;
     text-align: left;
