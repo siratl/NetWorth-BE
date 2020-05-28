@@ -15,20 +15,20 @@ function Auth(props) {
 
       <Form className='form'>
         <FormGroup>
-          <Label for='exampleEmail'>Email</Label>
+          <Label for='emailField'>Email</Label>
           <Input
             type='email'
             name='email'
-            id='exampleEmail'
+            id='emailField'
             placeholder='email'
           />
         </FormGroup>
         <FormGroup>
-          <Label for='examplePassword'>Password</Label>
+          <Label for='passField'>Password</Label>
           <Input
             type='password'
             name='password'
-            id='examplePassword'
+            id='passField'
             placeholder='password'
           />
         </FormGroup>
@@ -36,6 +36,11 @@ function Auth(props) {
           Login
         </Button>
       </Form>
+
+      <div className='forgot'>
+        <a href=''>Forgot Password?</a>
+        <a href=''>Sign Up</a>
+      </div>
     </div>
   );
 }
