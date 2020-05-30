@@ -65,7 +65,7 @@ function Dashboard(props) {
           Bank
         </Button>
       </div>
-      <div className='footer'>Navigation</div>
+      <div className='quotes'>Motivational Quotes</div>
     </div>
   );
 }

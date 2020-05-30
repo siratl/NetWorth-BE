@@ -113,13 +113,23 @@
   }
 
   .list {
+    margin: 0 1rem 1rem 1rem;
     background: white;
   }
 
   /* End */
 
-  .content {
+  .growth p {
+    margin-bottom: 0;
+  }
+
+  .growth h2 {
+    font-size: 3rem;
     border: 1px solid yellow;
+    margin: 0 5rem 3rem 5rem;
+  }
+
+  .content {
     text-align: left;
   }
 

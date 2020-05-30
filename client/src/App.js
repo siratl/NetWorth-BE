@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './App.css';
+import 'react-calendar/dist/Calendar.css';
 import { Route } from 'react-router-dom';
 import Dashboard from './Components/Dashboard/Dashboard.js';
 import Bills from './Components/Bills/Bills.js';
@@ -27,6 +28,11 @@ function App(props) {
     backdrop = <Backdrop sideBarToggleClose={sideBarToggleClose} />;
   }
 
+  const [date, setDate] = useState(new Date());
+  const onChange = (date) => {
+    setDate(date);
+  };
+
   return (
     <div className='App'>
       <SideBar
@@ -42,6 +48,8 @@ function App(props) {
             {...props}
             isSideBarOpen={isSideBarOpen}
             sideBarToggle={sideBarToggle}
+            onChange={onChange}
+            date={date}
           />
         )}
       />
@@ -75,6 +83,8 @@ function App(props) {
             {...props}
             isSideBarOpen={isSideBarOpen}
             sideBarToggle={sideBarToggle}
+            onChange={onChange}
+            date={date}
           />
         )}
       />
