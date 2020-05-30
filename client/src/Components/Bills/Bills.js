@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Calendar from 'react-calendar';
-import 'react-calendar/dist/Calendar.css';
 import { Button, Table } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -11,10 +10,7 @@ import {
 
 function Bills(props) {
   const { push } = props.history;
-  const { sideBarToggle, isSideBarOpen } = props;
-
-  const [date, setDate] = useState(new Date());
-  const onChange = () => setDate({ date });
+  const { sideBarToggle, isSideBarOpen, onChange, date } = props;
 
   return (
     <div className='mainContainer'>
@@ -40,7 +36,7 @@ function Bills(props) {
 
       {/* ----------------------- Calendar ------------------ */}
       <div className='calendar'>
-        <Calendar onChange={onChange} value={date} />
+        <Calendar calendarType='US' onChange={onChange} view={date} />
       </div>
 
       {/* ----------------------- Add Btn ------------------ */}

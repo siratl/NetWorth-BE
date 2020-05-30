@@ -35,7 +35,11 @@
     color: #61dafb;
   }
 
-  .footer {
+  .react-calendar__month-view__weekdays {
+    color: black;
+  }
+
+  .quotes {
     border: 1px solid red;
   }
 }
