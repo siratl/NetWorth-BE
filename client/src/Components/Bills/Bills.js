@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Calendar from 'react-calendar';
 import moment from 'moment';
 
@@ -13,6 +13,7 @@ import {
   FormGroup,
   Label,
   Input,
+  CustomInput,
 } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -34,8 +35,10 @@ function Bills(props) {
   // ------------------------------> Form State <------------------------ //
   const [formData, setFormData] = useState({
     billName: '',
-    dueDate: '',
+    dueDate: moment().format('YYYY-MM-DD'),
     amount: 0,
+    repeat: false,
+    paid: false,
   });
 
   const onInputChange = (event) => {
@@ -46,6 +49,58 @@ function Bills(props) {
     });
   };
 
+  const onCheckboxChange = (event) => {
+    setFormData({
+      ...formData,
+      [event.target.name]: event.target.checked,
+    });
+  };
+
+  // --------------------> Bills State <-------------------------------- //
+  const [billsData, setBillsData] = useState([]);
+  useEffect(() => {
+    let billsData = [
+      {
+        id: 1,
+        billName: 'Rent',
+        dueDate: '2020-05-15',
+        amount: 400,
+        repeat: true,
+        paid: false,
+      },
+      {
+        id: 2,
+        billName: 'Internet',
+        dueDate: '2020-04-20',
+        amount: 60,
+        repeat: true,
+        paid: false,
+      },
+      {
+        id: 3,
+        billName: 'Car',
+        dueDate: '2020-05-18',
+        amount: 40,
+        repeat: true,
+        paid: false,
+      },
+    ];
+    setBillsData(billsData);
+  }, []);
+
+  const addBill = (event) => {
+    // ----------------------------------------> INSERT TRY CATCH HERE
+    billsData.push(formData);
+    console.log('This is Data: ', formData.billName);
+    toggle();
+  };
+
+  // ------------------------------> Render Bills <---------------------- //
+  const itemClick = (ev) => {
+    console.log('I have been clicked');
+  };
+
+  // ------------------------------> Render Bills <---------------------- //
   return (
     <div className='mainContainer'>
       <div className='header'>
@@ -69,9 +124,9 @@ function Bills(props) {
       </div>
 
       {/* ----------------------- Calendar ------------------ */}
-      <div className='calendar'>
+      {/* <div className='calendar'>
         <Calendar calendarType='ISO 8601' onChange={onChange} value={date} />
-      </div>
+      </div> */}
 
       {/* ----------------------- Add Btn ------------------ */}
       <div className='add'>
@@ -97,7 +152,7 @@ function Bills(props) {
                 />
               </FormGroup>
               <FormGroup>
-                <Label for='inputDueDate'>Date</Label>
+                <Label for='inputDueDate'>Due</Label>
                 <Input
                   onChange={onInputChange}
                   type='date'
@@ -128,15 +183,22 @@ function Bills(props) {
                 </Input>
               </FormGroup> */}
 
-              <FormGroup check>
-                <Label check>
-                  <Input type='checkbox' /> Repeat
+              <FormGroup>
+                <Label>
+                  <CustomInput
+                    type='checkbox'
+                    id='inputRepeat'
+                    name='repeat'
+                    // checked={formData.repeat}
+                    onChange={onCheckboxChange}
+                  />{' '}
+                  <span id='inputRepeatLabel'>Recurring</span>
                 </Label>
               </FormGroup>
             </Form>
           </ModalBody>
           <ModalFooter>
-            <Button color='primary' onClick={toggle}>
+            <Button color='primary' onClick={addBill}>
               Submit
             </Button>{' '}
             <Button color='secondary' onClick={toggle}>
@@ -153,29 +215,19 @@ function Bills(props) {
             <tr>
               <th>#</th>
               <th>Bill</th>
-              <th>Date</th>
+              <th>Due</th>
               <th>Amount</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <th scope='row'>1</th>
-              <td>Internet</td>
-              <td>2/May</td>
-              <td>$60</td>
-            </tr>
-            <tr>
-              <th scope='row'>2</th>
-              <td>Rent</td>
-              <td>15/May</td>
-              <td>$200</td>
-            </tr>
-            <tr>
-              <th scope='row'>3</th>
-              <td>Cell</td>
-              <td>18/May</td>
-              <td>$40</td>
-            </tr>
+            {billsData.map((data) => (
+              <tr key={data.id} onClick={itemClick}>
+                <th scope='row'>{data.id}</th>
+                <td>{data.billName}</td>
+                <td>{moment(data.dueDate).format('YY-MM-DD')}</td>
+                <td>${data.amount}</td>
+              </tr>
+            ))}
           </tbody>
         </Table>
       </div>
