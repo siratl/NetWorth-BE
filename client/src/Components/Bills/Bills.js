@@ -1,16 +1,50 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Calendar from 'react-calendar';
-import { Button, Table } from 'reactstrap';
+import moment from 'moment';
+
+import {
+  Button,
+  Table,
+  Modal,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  Form,
+  FormGroup,
+  Label,
+  Input,
+} from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faHome,
   faBars,
   faPlusCircle,
+  faMoneyBillWave,
 } from '@fortawesome/free-solid-svg-icons';
 
 function Bills(props) {
   const { push } = props.history;
-  const { sideBarToggle, isSideBarOpen, onChange, date } = props;
+  const { sideBarToggle, isSideBarOpen, onChange, date, className } = props;
+
+  // ------------------------------> Modal State <------------------------ //
+  const [modal, setModal] = useState(false);
+
+  const toggle = () => setModal(!modal);
+
+  // ------------------------------> Form State <------------------------ //
+  const [formData, setFormData] = useState({
+    billName: '',
+    dueDate: '',
+    amount: 0,
+  });
+
+  const onInputChange = (event) => {
+    event.preventDefault();
+    setFormData({
+      ...formData,
+      [event.target.name]: event.target.value,
+    });
+  };
 
   return (
     <div className='mainContainer'>
@@ -36,14 +70,80 @@ function Bills(props) {
 
       {/* ----------------------- Calendar ------------------ */}
       <div className='calendar'>
-        <Calendar calendarType='US' onChange={onChange} view={date} />
+        <Calendar calendarType='ISO 8601' onChange={onChange} value={date} />
       </div>
 
       {/* ----------------------- Add Btn ------------------ */}
       <div className='add'>
-        <Button id='add-btn' size='lg' block color='info'>
+        <Button id='add-btn' size='lg' block color='info' onClick={toggle}>
           <FontAwesomeIcon icon={faPlusCircle} /> Add Bill
         </Button>
+        <Modal isOpen={modal} toggle={toggle} className={className}>
+          <ModalHeader toggle={toggle}>
+            <FontAwesomeIcon icon={faMoneyBillWave} /> Add Bill
+          </ModalHeader>
+
+          <ModalBody>
+            <Form>
+              <FormGroup>
+                <Label for='inputBillName'>Title</Label>
+                <Input
+                  onChange={onInputChange}
+                  type='text'
+                  maxLength='10'
+                  name='billName'
+                  id='inputBillName'
+                  placeholder='Enter Bill'
+                />
+              </FormGroup>
+              <FormGroup>
+                <Label for='inputDueDate'>Date</Label>
+                <Input
+                  onChange={onInputChange}
+                  type='date'
+                  name='dueDate'
+                  id='inputDueDate'
+                  value={moment(date).format('YYYY-MM-DD')}
+                />
+              </FormGroup>
+
+              <FormGroup>
+                <Label for='inputAmount'>Amount</Label>
+                <Input
+                  onChange={onInputChange}
+                  type='number'
+                  name='amount'
+                  id='inputAmount'
+                  placeholder='Enter Amount'
+                />
+              </FormGroup>
+              {/* <FormGroup>
+                <Label for='exampleSelect'>Select</Label>
+                <Input type='select' name='select' id='exampleSelect'>
+                  <option>1</option>
+                  <option>2</option>
+                  <option>3</option>
+                  <option>4</option>
+                  <option>5</option>
+                </Input>
+              </FormGroup> */}
+
+              <FormGroup check>
+                <Label check>
+                  <Input type='checkbox' /> Repeat
+                </Label>
+              </FormGroup>
+            </Form>
+          </ModalBody>
+          <ModalFooter>
+            <Button color='primary' onClick={toggle}>
+              Submit
+            </Button>{' '}
+            <Button color='secondary' onClick={toggle}>
+              Cancel
+            </Button>
+          </ModalFooter>
+        </Modal>
       </div>
 
       {/* ------------------------ Table ----------------------------- */}
