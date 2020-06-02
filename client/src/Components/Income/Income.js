@@ -25,6 +25,7 @@ import {
 function Income(props) {
   const { push } = props.history;
   const { sideBarToggle, isSideBarOpen, onChange, date, className } = props;
+
   // ------------------------------> Modal State <------------------------ //
   const [modal, setModal] = useState(false);
 
@@ -80,7 +81,7 @@ function Income(props) {
 
   const addIncome = (event) => {
     // ----------------------------------------> INSERT TRY CATCH HERE
-    if (formData.incomeType.length == 0 || formData.amount === 0) {
+    if (formData.incomeType.length === 0 || formData.amount === 0) {
       return alert('No input!');
     } else {
       incomeData.push(formData);

@@ -90,7 +90,7 @@ function Bills(props) {
 
   const addBill = (event) => {
     // ----------------------------------------> INSERT TRY CATCH HERE
-    if (formData.billName.length == 0 || formData.amount === 0) {
+    if (formData.billName.length === 0 || formData.amount === 0) {
       return alert('No input!');
     } else {
       billsData.push(formData);
