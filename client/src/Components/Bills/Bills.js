@@ -90,12 +90,16 @@ function Bills(props) {
 
   const addBill = (event) => {
     // ----------------------------------------> INSERT TRY CATCH HERE
-    billsData.push(formData);
+    if (formData.billName.length == 0 || formData.amount === 0) {
+      return alert('No input!');
+    } else {
+      billsData.push(formData);
+    }
     console.log('This is Data: ', formData.billName);
     toggle();
   };
 
-  // ------------------------------> Render Bills <---------------------- //
+  // ------------------------------> Bill Item Click <---------------------- //
   const itemClick = (ev) => {
     console.log('I have been clicked');
   };
@@ -145,7 +149,7 @@ function Bills(props) {
                 <Input
                   onChange={onInputChange}
                   type='text'
-                  maxLength='10'
+                  maxLength='20'
                   name='billName'
                   id='inputBillName'
                   placeholder='Enter Bill'
