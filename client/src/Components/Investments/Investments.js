@@ -83,6 +83,7 @@ function Investments(props) {
     if (formData.investmentType.length === 0 || formData.amount === 0) {
       return alert('No input!');
     } else {
+      formData.amount = Number(formData.amount);
       investmentData.push(formData);
     }
     console.log('This is Data: ', formData.investmentType);
@@ -101,12 +102,11 @@ function Investments(props) {
   };
 
   // --------------------> Total Growth State <---------------------------- //
-  const [totalInvest, setTotalInvested] = useState();
-
   let totalInvested = investmentData.map((num) => {
     return num.amount;
   });
   const sum = totalInvested.reduce((acc, curr) => acc + curr, 0);
+  console.log(sum);
 
   return (
     <div className='mainContainer'>
@@ -233,7 +233,7 @@ function Investments(props) {
               <tr key={data.id} onClick={itemClick}>
                 <th scope='row'>{data.id}</th>
                 <td>{data.investmentType}</td>
-                <td>{moment(data.dueDate).format('YY-MM-DD')}</td>
+                <td>{moment(data.date).format('YY-MM-DD')}</td>
                 <td>${data.amount}</td>
               </tr>
             ))}
