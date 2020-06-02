@@ -85,7 +85,7 @@ function Budget(props) {
 
   const addBudget = (event) => {
     // ----------------------------------------> INSERT TRY CATCH HERE
-    if (formData.budgetName.length == 0 || formData.amount === 0) {
+    if (formData.budgetName.length === 0 || formData.amount === 0) {
       return alert('No input!');
     } else {
       budgetsData.push(formData);
