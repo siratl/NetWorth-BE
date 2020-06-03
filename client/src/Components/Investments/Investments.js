@@ -51,6 +51,19 @@ function Investments(props) {
     });
   };
 
+  const [formDataUpd, setFormDataUpd] = useState({
+    date: moment().format('YYYY-MM-DD'),
+    amount: 2500,
+  });
+
+  const onInputChangeUpd = (event) => {
+    event.preventDefault();
+    setFormDataUpd({
+      ...formDataUpd,
+      [event.target.name]: event.target.value,
+    });
+  };
+
   const onCheckboxChange = (event) => {
     setFormData({
       ...formData,
@@ -89,12 +102,17 @@ function Investments(props) {
     console.log('This is Data: ', formData.investmentType);
     toggle();
   };
+  // ----------------> Update Investment Value State <-------------------- //
 
   const updateInvestment = (event) => {
     // ----------------------------------------> INSERT TRY CATCH HERE
-    console.log('This Data updated: ', formData.investmentType);
+    formDataUpd.amount = Number(formDataUpd.amount);
+    setFormDataUpd(formDataUpd);
+    console.log('This Data updated: ', formDataUpd.amount);
     toggle1();
   };
+
+  let val = formDataUpd.amount;
 
   // ------------------------------> Investment Item Click  <---------------------- //
   const itemClick = (ev) => {
@@ -108,6 +126,11 @@ function Investments(props) {
   const sum = totalInvested.reduce((acc, curr) => acc + curr, 0);
   console.log(sum);
 
+  // --------------------> Total Growth <---------------------------- //
+  let growth = val - sum;
+  const percent = (growth / sum) * 100;
+
+  // --------------------> Render <---------------------------- //
   return (
     <div className='mainContainer'>
       <div className='header'>
@@ -123,7 +146,8 @@ function Investments(props) {
       {/* ----------------------- Totals ------------------ */}
       <div className='totals'>
         <span>
-          Investment Value<p>$0</p>
+          Investment Value
+          <p>${val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</p>
         </span>
         <span>
           Total Invested
@@ -133,7 +157,8 @@ function Investments(props) {
 
       <div className='growth'>
         <p>Total Growth</p>
-        <h2>0%</h2>
+        <h2>{Number(percent.toFixed(2))}%</h2>
+        {console.log(Number(percent.toFixed(2)))}
       </div>
 
       {/* ----------------------- Add Btn ------------------ */}
@@ -247,7 +272,7 @@ function Investments(props) {
           <FontAwesomeIcon icon={faPlus} /> Update Investment Value
         </Button>
 
-        {/* ------------------------ Form Modal ----------------------------- */}
+        {/* --------------------- Update Form Modal ----------------------- */}
 
         <Modal isOpen={modal1} toggle={toggle1} className={className}>
           <ModalHeader toggle={toggle1}>
@@ -257,62 +282,14 @@ function Investments(props) {
           <ModalBody>
             <Form>
               <FormGroup>
-                <Label for='inputInvestmentType'>Investment Title</Label>
-                <Input
-                  onChange={onInputChange}
-                  type='select'
-                  maxLength='20'
-                  name='investmentType'
-                  id='inputInvestmentType'
-                >
-                  <option>Select</option>
-                  {investmentData.map((data) => (
-                    <option key={data.id}>{data.investmentType}</option>
-                  ))}
-                </Input>
-              </FormGroup>
-              <FormGroup>
-                <Label for='inputDate'>Date</Label>
-                <Input
-                  onChange={onInputChange}
-                  type='date'
-                  name='date'
-                  id='inputDate'
-                  value={moment(date).format('YYYY-MM-DD')}
-                />
-              </FormGroup>
-              <FormGroup>
                 <Label for='inputAmount'>Amount</Label>
                 <Input
-                  onChange={onInputChange}
+                  onChange={onInputChangeUpd}
                   type='number'
                   name='amount'
                   id='inputAmount'
                   placeholder='Enter Amount'
                 />
-              </FormGroup>
-              {/* <FormGroup>
-                <Label for='exampleSelect'>Select</Label>
-                <Input type='select' name='select' id='exampleSelect'>
-                  <option>1</option>
-                  <option>2</option>
-                  <option>3</option>
-                  <option>4</option>
-                  <option>5</option>
-                </Input>
-              </FormGroup> */}
-
-              <FormGroup>
-                <Label>
-                  <CustomInput
-                    type='checkbox'
-                    id='inputRepeat'
-                    name='repeat'
-                    // checked={formData.repeat}
-                    onChange={onCheckboxChange}
-                  />{' '}
-                  <span id='inputRepeatLabel'>Recurring</span>
-                </Label>
               </FormGroup>
             </Form>
           </ModalBody>

@@ -88,6 +88,7 @@ function Budget(props) {
     if (formData.budgetName.length === 0 || formData.amount === 0) {
       return alert('No input!');
     } else {
+      formData.amount = Number(formData.amount);
       budgetsData.push(formData);
     }
     console.log('This is Data: ', formData.budgetName);

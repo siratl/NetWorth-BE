@@ -84,6 +84,7 @@ function Income(props) {
     if (formData.incomeType.length === 0 || formData.amount === 0) {
       return alert('No input!');
     } else {
+      formData.amount = Number(formData.amount);
       incomeData.push(formData);
     }
     console.log('This is Data: ', formData.incomeType);

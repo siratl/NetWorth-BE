@@ -93,6 +93,7 @@ function Bills(props) {
     if (formData.billName.length === 0 || formData.amount === 0) {
       return alert('No input!');
     } else {
+      formData.amount = Number(formData.amount);
       billsData.push(formData);
     }
     console.log('This is Data: ', formData.billName);
