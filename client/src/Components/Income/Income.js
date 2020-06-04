@@ -55,7 +55,7 @@ function Income(props) {
     });
   };
 
-  // --------------------> Bills State <-------------------------------- //
+  // --------------------> Income State <-------------------------------- //
   const [incomeData, setIncomeData] = useState([]);
   useEffect(() => {
     let incomeData = [
@@ -97,7 +97,7 @@ function Income(props) {
   const sum = totalIncome.reduce((acc, curr) => acc + curr, 0);
   console.log(sum);
 
-  // ------------------------------> Budget Item Click  <---------------------- //
+  // ------------------------------> Income Item Click  <---------------------- //
   const itemClick = (ev) => {
     console.log('I have been clicked');
   };
@@ -143,14 +143,14 @@ function Income(props) {
           <ModalBody>
             <Form>
               <FormGroup>
-                <Label for='inputIncomeType'>Title</Label>
+                <Label for='inputIncomeType'>Source</Label>
                 <Input
                   onChange={onInputChange}
                   type='text'
                   maxLength='20'
                   name='incomeType'
                   id='inputIncomeType'
-                  placeholder='Enter Income'
+                  placeholder='Enter Source'
                 />
               </FormGroup>
               <FormGroup>
