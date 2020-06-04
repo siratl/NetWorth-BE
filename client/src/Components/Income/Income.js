@@ -91,6 +91,12 @@ function Income(props) {
     toggle();
   };
 
+  let totalIncome = incomeData.map((num) => {
+    return num.amount;
+  });
+  const sum = totalIncome.reduce((acc, curr) => acc + curr, 0);
+  console.log(sum);
+
   // ------------------------------> Budget Item Click  <---------------------- //
   const itemClick = (ev) => {
     console.log('I have been clicked');
@@ -111,7 +117,8 @@ function Income(props) {
       {/* ----------------------- Totals ------------------ */}
       <div className='totals'>
         <span>
-          Total Bills <p>$0</p>
+          Total Income{' '}
+          <p>${sum.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</p>
         </span>
         <span>
           Unpaid Bills<p>$0</p>
@@ -218,7 +225,7 @@ function Income(props) {
               <tr key={data.id} onClick={itemClick}>
                 <th scope='row'>{data.id}</th>
                 <td>{data.incomeType}</td>
-                <td>{moment(data.dueDate).format('YY-MM-DD')}</td>
+                <td>{moment(data.date).format('YY-MM-DD')}</td>
                 <td>${data.amount}</td>
               </tr>
             ))}
