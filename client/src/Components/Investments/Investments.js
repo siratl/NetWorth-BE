@@ -137,9 +137,9 @@ function Investments(props) {
         <FontAwesomeIcon id='home' onClick={() => push('/')} icon={faHome} />
         <h2>Investments</h2>
         <FontAwesomeIcon
-          id='menu'
+          id={isSideBarOpen ? 'hidden' : 'menu'}
           onClick={sideBarToggle}
-          icon={isSideBarOpen ? null : faBars}
+          icon={faBars}
         />
       </div>
 

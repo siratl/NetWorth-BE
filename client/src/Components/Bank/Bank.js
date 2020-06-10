@@ -106,9 +106,9 @@ function Bank(props) {
         <FontAwesomeIcon id='home' onClick={() => push('/')} icon={faHome} />
         <h2>Bank</h2>
         <FontAwesomeIcon
-          id='menu'
+          id={isSideBarOpen ? 'hidden' : 'menu'}
           onClick={sideBarToggle}
-          icon={isSideBarOpen ? null : faBars}
+          icon={faBars}
         />
       </div>
 

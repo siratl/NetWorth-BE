@@ -44,6 +44,10 @@
     font-size: 1.3rem;
   }
 
+  #hidden {
+    display: none;
+  }
+
   .board {
     min-height: 35vh;
     border: 1px solid rgb(0, 255, 21);

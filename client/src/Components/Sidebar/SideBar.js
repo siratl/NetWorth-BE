@@ -29,9 +29,6 @@ function SideBar(props) {
         <NavLink onClick={sideBarToggleClose} id='link' to='budget'>
           <span>Budget</span>
         </NavLink>
-        <NavLink onClick={sideBarToggleClose} id='link' to='income'>
-          <span>Income</span>
-        </NavLink>
         <NavLink onClick={sideBarToggleClose} id='link' to='investments'>
           <span>Investments</span>
         </NavLink>

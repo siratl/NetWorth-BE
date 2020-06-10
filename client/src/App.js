@@ -5,7 +5,6 @@ import 'react-calendar/dist/Calendar.css';
 import { Route } from 'react-router-dom';
 import Dashboard from './Components/Dashboard/Dashboard.js';
 import Bills from './Components/Bills/Bills.js';
-import Income from './Components/Income/Income.js';
 import Budget from './Components/Budget/Budget.js';
 import Bank from './Components/Bank/Bank.js';
 import Investments from './Components/Investments/Investments.js';
@@ -76,19 +75,7 @@ function App(props) {
           />
         )}
       />
-      <Route
-        sideBarToggle={sideBarToggle}
-        path='/income'
-        render={(props) => (
-          <Income
-            {...props}
-            isSideBarOpen={isSideBarOpen}
-            sideBarToggle={sideBarToggle}
-            onChange={onChange}
-            date={date}
-          />
-        )}
-      />
+
       <Route
         sideBarToggle={sideBarToggle}
         path='/investments'
