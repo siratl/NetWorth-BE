@@ -7,8 +7,9 @@ router.get('/', (req, res) => {
     {
       id: 1,
       name: 'Car',
-      amount: 600,
+      amount: 650,
       repeat: true,
+      date: '2020-04-05',
       paid: false,
       message: 'this is a message',
     },
@@ -16,6 +17,7 @@ router.get('/', (req, res) => {
       id: 2,
       name: 'Rent',
       amount: 1400,
+      date: '2020-04-13',
       repeat: true,
       paid: false,
       message: 'this is a message',
@@ -23,7 +25,8 @@ router.get('/', (req, res) => {
     {
       id: 3,
       name: 'Internet',
-      amount: 70,
+      amount: 170,
+      date: '2020-04-18',
       repeat: true,
       paid: false,
       message: 'this is a message',
