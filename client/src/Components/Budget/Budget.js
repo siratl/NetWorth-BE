@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import moment from 'moment';
 import {
   Button,
@@ -32,11 +33,9 @@ function Budget(props) {
 
   // ------------------------------> Form State <------------------------ //
   const [formData, setFormData] = useState({
-    budgetName: '',
+    name: '',
     date: moment().format('YYYY-MM-DD'),
     amount: 0,
-    repeat: false,
-    paid: false,
   });
 
   const onInputChange = (event) => {
@@ -57,30 +56,10 @@ function Budget(props) {
   // --------------------> Bills State <-------------------------------- //
   const [budgetsData, setBudgetsData] = useState([]);
   useEffect(() => {
-    let budgetsData = [
-      {
-        id: 1,
-        budgetName: 'Rent',
-        amount: 400,
-        repeat: true,
-        paid: false,
-      },
-      {
-        id: 2,
-        budgetName: 'Internet',
-        amount: 60,
-        repeat: true,
-        paid: false,
-      },
-      {
-        id: 3,
-        budgetName: 'Car',
-        amount: 40,
-        repeat: true,
-        paid: false,
-      },
-    ];
-    setBudgetsData(budgetsData);
+    axios.get('http://127.0.0.1:5000/api/budget').then((res) => {
+      console.log(res.data);
+      setBudgetsData(res.data);
+    });
   }, []);
 
   const addBudget = (event) => {
@@ -94,6 +73,13 @@ function Budget(props) {
     console.log('This is Data: ', formData.budgetName);
     toggle();
   };
+
+  // --------------------------------------> SUM Total <------------------
+  let totalBudget = budgetsData.map((num) => {
+    return num.amount;
+  });
+  const sum = totalBudget.reduce((acc, curr) => acc + curr, 0);
+  console.log(sum);
 
   // ------------------------------> Budget Item Click  <---------------------- //
   const itemClick = (ev) => {
@@ -115,7 +101,8 @@ function Budget(props) {
       {/* ----------------------- Totals ------------------ */}
       <div className='totals'>
         <span>
-          Total Budget <p>$0</p>
+          Total Budget{' '}
+          <p>${sum.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</p>
         </span>
         <span>
           Total Cash<p>$0</p>
@@ -206,7 +193,7 @@ function Budget(props) {
             {budgetsData.map((data) => (
               <tr key={data.id} onClick={itemClick}>
                 <th scope='row'>{data.id}</th>
-                <td>{data.budgetName}</td>
+                <td>{data.name}</td>
                 <td>${data.amount}</td>
               </tr>
             ))}

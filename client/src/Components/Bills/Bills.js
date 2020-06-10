@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import Calendar from 'react-calendar';
 import moment from 'moment';
 
@@ -34,8 +35,8 @@ function Bills(props) {
 
   // ------------------------------> Form State <------------------------ //
   const [formData, setFormData] = useState({
-    billName: '',
-    dueDate: moment().format('YYYY-MM-DD'),
+    name: '',
+    date: moment().format('YYYY-MM-DD'),
     amount: 0,
     repeat: false,
     paid: false,
@@ -59,33 +60,10 @@ function Bills(props) {
   // --------------------> Bills State <-------------------------------- //
   const [billsData, setBillsData] = useState([]);
   useEffect(() => {
-    let billsData = [
-      {
-        id: 1,
-        billName: 'Rent',
-        dueDate: '2020-05-15',
-        amount: 400,
-        repeat: true,
-        paid: false,
-      },
-      {
-        id: 2,
-        billName: 'Internet',
-        dueDate: '2020-04-20',
-        amount: 60,
-        repeat: true,
-        paid: false,
-      },
-      {
-        id: 3,
-        billName: 'Car',
-        dueDate: '2020-05-18',
-        amount: 40,
-        repeat: true,
-        paid: false,
-      },
-    ];
-    setBillsData(billsData);
+    axios.get('http://127.0.0.1:5000/api/bills').then((res) => {
+      console.log(res.data);
+      setBillsData(res.data);
+    });
   }, []);
 
   const addBill = (event) => {
@@ -99,6 +77,12 @@ function Bills(props) {
     console.log('This is Data: ', formData.billName);
     toggle();
   };
+
+  let totalBills = billsData.map((num) => {
+    return num.amount;
+  });
+  const sum = totalBills.reduce((acc, curr) => acc + curr, 0);
+  console.log(sum);
 
   // ------------------------------> Bill Item Click <---------------------- //
   const itemClick = (ev) => {
@@ -114,14 +98,15 @@ function Bills(props) {
         <FontAwesomeIcon
           id={isSideBarOpen ? 'hidden' : 'menu'}
           onClick={sideBarToggle}
-          icon={ faBars}
+          icon={faBars}
         />
       </div>
 
       {/* ----------------------- Totals ------------------ */}
       <div className='totals'>
         <span>
-          Total Bills <p>$0</p>
+          Total Bills{' '}
+          <p>${sum.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</p>
         </span>
         <span>
           Unpaid Bills<p>$0</p>
@@ -228,8 +213,8 @@ function Bills(props) {
             {billsData.map((data) => (
               <tr key={data.id} onClick={itemClick}>
                 <th scope='row'>{data.id}</th>
-                <td>{data.billName}</td>
-                <td>{moment(data.dueDate).format('YY-MM-DD')}</td>
+                <td>{data.name}</td>
+                <td>{moment(data.date).format('YY-MM-DD')}</td>
                 <td>${data.amount}</td>
               </tr>
             ))}

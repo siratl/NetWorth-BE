@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import moment from 'moment';
 import {
   Button,
@@ -38,7 +39,7 @@ function Investments(props) {
 
   // ------------------------------> Form State <------------------------ //
   const [formData, setFormData] = useState({
-    investmentType: '',
+    type: '',
     date: moment().format('YYYY-MM-DD'),
     amount: 0,
   });
@@ -53,7 +54,7 @@ function Investments(props) {
 
   const [formDataUpd, setFormDataUpd] = useState({
     date: moment().format('YYYY-MM-DD'),
-    amount: 2500,
+    amount: 15500,
   });
 
   const onInputChangeUpd = (event) => {
@@ -74,21 +75,10 @@ function Investments(props) {
   // --------------------> Investment State <------------------------------- //
   const [investmentData, setInvestmentData] = useState([]);
   useEffect(() => {
-    let investmentData = [
-      {
-        id: 1,
-        investmentType: 'Stocks',
-        date: '2020-04-20',
-        amount: 1400,
-      },
-      {
-        id: 2,
-        investmentType: 'Bonds',
-        date: '2020-04-10',
-        amount: 160,
-      },
-    ];
-    setInvestmentData(investmentData);
+    axios.get('http://127.0.0.1:5000/api/investments').then((res) => {
+      console.log(res.data);
+      setInvestmentData(res.data);
+    });
   }, []);
 
   const addInvestment = (event) => {
@@ -146,7 +136,7 @@ function Investments(props) {
       {/* ----------------------- Totals ------------------ */}
       <div className='totals'>
         <span>
-          Investment Value
+          Current Value
           <p>${val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</p>
         </span>
         <span>
@@ -216,19 +206,6 @@ function Investments(props) {
                   <option>5</option>
                 </Input>
               </FormGroup> */}
-
-              <FormGroup>
-                <Label>
-                  <CustomInput
-                    type='checkbox'
-                    id='inputRepeat'
-                    name='repeat'
-                    // checked={formData.repeat}
-                    onChange={onCheckboxChange}
-                  />{' '}
-                  <span id='inputRepeatLabel'>Recurring</span>
-                </Label>
-              </FormGroup>
             </Form>
           </ModalBody>
           <ModalFooter>
@@ -257,7 +234,7 @@ function Investments(props) {
             {investmentData.map((data) => (
               <tr key={data.id} onClick={itemClick}>
                 <th scope='row'>{data.id}</th>
-                <td>{data.investmentType}</td>
+                <td>{data.type}</td>
                 <td>{moment(data.date).format('YY-MM-DD')}</td>
                 <td>${data.amount}</td>
               </tr>
