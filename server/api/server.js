@@ -1,5 +1,6 @@
 // import express
 const express = require('express');
+const cors = require('cors');
 const helmet = require('helmet');
 
 // ---------------------> Routers <---------------------
@@ -10,6 +11,7 @@ const investmentsRouter = require('../invest/investments-router.js');
 
 // create server
 const server = express();
+server.use(cors());
 
 server.use(helmet());
 server.use(express.json());
