@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import moment from 'moment';
 import {
   Button,
@@ -32,11 +33,9 @@ function Bank(props) {
 
   // ------------------------------> Form State <------------------------ //
   const [formData, setFormData] = useState({
-    cashType: '',
+    source: '',
     date: moment().format('YYYY-MM-DD'),
     amount: 0,
-    repeat: false,
-    paid: false,
   });
 
   const onInputChange = (event) => {
@@ -57,25 +56,10 @@ function Bank(props) {
   // --------------------> Bank State <-------------------------------- //
   const [cashData, setCashData] = useState([]);
   useEffect(() => {
-    let cashData = [
-      {
-        id: 1,
-        cashType: 'Labor',
-        date: '2020-04-20',
-        amount: 1400,
-        repeat: true,
-        paid: false,
-      },
-      {
-        id: 2,
-        cashType: 'Gift',
-        date: '2020-04-10',
-        amount: 160,
-        repeat: true,
-        paid: false,
-      },
-    ];
-    setCashData(cashData);
+    axios.get('http://127.0.0.1:5000/api/bank').then((res) => {
+      console.log(res.data);
+      setCashData(res.data);
+    });
   }, []);
 
   const addCash = (event) => {
@@ -194,7 +178,7 @@ function Bank(props) {
             {cashData.map((data) => (
               <tr key={data.id} onClick={itemClick}>
                 <th scope='row'>{data.id}</th>
-                <td>{data.cashType}</td>
+                <td>{data.source}</td>
                 <td>{moment(data.date).format('YY-MM-DD')}</td>
                 <td>${data.amount}</td>
               </tr>
