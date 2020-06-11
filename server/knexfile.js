@@ -4,9 +4,16 @@ module.exports = {
   development: {
     client: 'sqlite3',
     connection: {
-      filename: './data/networth.sqlite3',
+      filename: './data/networth.db3',
     },
     useNullAsDefault: true,
+    migrations: {
+      directory: './data/migrations',
+      tableName: 'knex_migrations',
+    },
+    seeds: {
+      directory: './data/seeds',
+    },
   },
 
   staging: {
@@ -21,6 +28,7 @@ module.exports = {
       max: 10,
     },
     migrations: {
+      directory: './data/migrations',
       tableName: 'knex_migrations',
     },
   },
@@ -37,7 +45,11 @@ module.exports = {
       max: 10,
     },
     migrations: {
+      directory: './data/migrations',
       tableName: 'knex_migrations',
+    },
+    seeds: {
+      directory: './data/seeds',
     },
   },
 };
