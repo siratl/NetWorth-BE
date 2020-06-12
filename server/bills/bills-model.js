@@ -29,4 +29,6 @@ function update(id, changes) {
     });
 }
 
-function remove(id) {}
+function remove(id) {
+  return db("bills").where({ id }).del();
+}
