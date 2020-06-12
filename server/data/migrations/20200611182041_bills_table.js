@@ -5,10 +5,12 @@ exports.up = function (knex) {
     tbl.string("name", 128).notNullable().unique().index();
     tbl
       .integer("user_id")
+      .unsigned()
       .notNullable()
       .references("id")
       .inTable("users")
-      .index();
+      .onUpdate("CASCADE")
+      .onDelete("CASCADE");
     tbl.integer("amount").notNullable();
     tbl.date("date");
     tbl.boolean("repeat").defaultTo(false);

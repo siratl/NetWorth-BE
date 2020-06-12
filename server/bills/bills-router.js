@@ -1,6 +1,5 @@
 const express = require("express");
 
-const db = require("../data/db-config.js");
 const Bills = require("../bills/bills-model.js");
 
 const router = express.Router();
@@ -11,7 +10,7 @@ router.get("/", (req, res) => {
       res.status(200).json(bills);
     })
     .catch((err) => {
-      res.status(500).json({ errMessage: "Failed to get bills!" });
+      res.status(500).json({ errMessage: "Failed to get bills list!" });
     });
 });
 
@@ -36,10 +35,12 @@ router.get("/:id", (req, res) => {
 
 // ------------------------> ADD DATA TO DB
 router.post("/", (req, res) => {
-  const { bill } = req.body;
+  const bill = req.body;
+  console.log(bill);
 
   Bills.add(bill)
     .then((ids) => {
+      console.log(ids);
       res.status(201).json({ created: ids[0] });
     })
     .catch((err) => {
