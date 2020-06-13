@@ -1,13 +1,14 @@
 // import express
-const express = require('express');
-const cors = require('cors');
-const helmet = require('helmet');
+const express = require("express");
+const cors = require("cors");
+const helmet = require("helmet");
 
 // ---------------------> Routers <---------------------
-const budgetRouter = require('../budget/budget-router.js');
-const billsRouter = require('../bills/bills-router.js');
-const bankRouter = require('../bank/bank-router.js');
-const investmentsRouter = require('../invest/investments-router.js');
+const budgetRouter = require("../budget/budget-router.js");
+const billsRouter = require("../bills/bills-router.js");
+const usersRouter = require("../users/users-router.js");
+const bankRouter = require("../bank/bank-router.js");
+const investmentsRouter = require("../invest/investments-router.js");
 
 // create server
 const server = express();
@@ -16,17 +17,18 @@ server.use(cors());
 server.use(helmet());
 server.use(express.json());
 
-server.get('/', (req, res) => {
-  res.status(200).send('<h1>Hello world!</h1>');
+server.get("/", (req, res) => {
+  res.status(200).send("<h1>Hello world!</h1>");
 });
 
 // -------------------> Routes <------------------------
-server.use('/api/budget', budgetRouter);
-server.use('/api/bills', billsRouter);
-server.use('/api/bank', bankRouter);
-server.use('/api/investments', investmentsRouter);
+server.use("/api/users", usersRouter);
+server.use("/api/budget", budgetRouter);
+server.use("/api/bills", billsRouter);
+server.use("/api/bank", bankRouter);
+server.use("/api/investments", investmentsRouter);
 
-server.post('/hobbits', (req, res) => {
+server.post("/hobbits", (req, res) => {
   const hobbit = req.body;
   hobbit.id = nextId++;
 
@@ -34,11 +36,11 @@ server.post('/hobbits', (req, res) => {
   res.status(201).send(hobbits);
 });
 
-server.put('/hobbits/:id', (req, res) => {
+server.put("/hobbits/:id", (req, res) => {
   const hobbit = hobbits.find((h) => h.id == req.params.id);
 
   if (!hobbit) {
-    res.status(404).json({ message: 'Hobbit does not exist' });
+    res.status(404).json({ message: "Hobbit does not exist" });
   } else {
     // modify the existing hobbit
     Object.assign(hobbit, req.body);
@@ -47,7 +49,7 @@ server.put('/hobbits/:id', (req, res) => {
   }
 });
 
-server.delete('/hobbits/:id', (req, res) => {
+server.delete("/hobbits/:id", (req, res) => {
   const id = req.params.id;
   // or we could destructure it like so: const { id } = req.params;
   res.status(200).json({
