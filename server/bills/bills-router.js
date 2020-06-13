@@ -1,7 +1,6 @@
 const express = require("express");
 
 const Bills = require("../bills/bills-model.js");
-const { findById } = require("../bills/bills-model.js");
 
 const router = express.Router();
 
@@ -24,7 +23,7 @@ router.get("/:id", (req, res) => {
       if (bills) {
         res.status(200).json(bills);
       } else {
-        res.status(404).json({ message: `Could not find bill with id:${id}` });
+        res.status(404).json({ message: `Could not find bill with id: ${id}` });
       }
     })
     .catch((err) => {
@@ -80,7 +79,9 @@ router.delete("/:id", async (req, res) => {
           .json({ message: `Bill with id: ${id} does not Exist!` });
       } else {
         console.log(count);
-        res.status(200).json({ message: `Bill was deleted successfully.` });
+        res
+          .status(200)
+          .json({ message: `Bill with id: ${id} was deleted successfully.` });
       }
     })
     .catch((err) => {
