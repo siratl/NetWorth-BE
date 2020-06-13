@@ -4,6 +4,7 @@ const cors = require("cors");
 const helmet = require("helmet");
 
 // ---------------------> Routers <---------------------
+const authRouter = require("../auth/authRouter.js");
 const budgetRouter = require("../budget/budget-router.js");
 const billsRouter = require("../bills/bills-router.js");
 const usersRouter = require("../users/users-router.js");
@@ -18,10 +19,11 @@ server.use(helmet());
 server.use(express.json());
 
 server.get("/", (req, res) => {
-  res.status(200).send("<h1>Hello world!</h1>");
+  res.status(200).send("<h1>Net_Worth App</h1>");
 });
 
 // -------------------> Routes <------------------------
+server.use("/api/auth", authRouter);
 server.use("/api/users", usersRouter);
 server.use("/api/budget", budgetRouter);
 server.use("/api/bills", billsRouter);
