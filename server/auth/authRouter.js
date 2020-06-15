@@ -15,7 +15,10 @@ router.post("/register", (req, res) => {
 
   Users.add(userInfo)
     .then((user) => {
-      res.json(user);
+      res.json({
+        message: `Welcome to Net-Worth Tracker ${user.first_name}.`,
+        user,
+      });
     })
     .catch((err) => {
       res.send(err);
@@ -28,10 +31,14 @@ router.post("/login", (req, res) => {
 
   Users.findBy({ username })
     .then(([user]) => {
-      if (user && bcrypt.compareSync(password, user.password)) {
+      if (req.session.user && req.session.user.username === username) {
+        res.status(406).json({ message: `A user is already logged in!` });
+      } else if (user && bcrypt.compareSync(password, user.password)) {
+        console.log(user);
         req.session.user = {
           id: user.id,
           username: user.username,
+          email: user.email,
         };
 
         res

@@ -34,22 +34,21 @@ module.exports = {
   },
 
   production: {
-    client: "postgresql",
+    client: "sqlite3",
     connection: {
-      database: "my_db",
-      user: "username",
-      password: "password",
+      filename: "./data/networth.db3",
     },
-    pool: {
-      min: 2,
-      max: 10,
-    },
+    useNullAsDefault: true,
     migrations: {
       directory: "./data/migrations",
-      tableName: "knex_migrations",
     },
     seeds: {
       directory: "./data/seeds",
+    },
+    pool: {
+      afterCreate: function (conn, done) {
+        conn.run("PRAGMA foreign_keys = ON", done);
+      },
     },
   },
 };

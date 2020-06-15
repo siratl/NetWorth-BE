@@ -4,7 +4,9 @@ const Users = require("../users/users-model.js");
 
 const router = express.Router();
 
-router.get("/", (req, res) => {
+const admin = require("../auth/admin-middleware.js");
+
+router.get("/", admin, (req, res) => {
   Users.find()
     .then((users) => {
       res.status(200).json(users);
@@ -31,40 +33,29 @@ router.get("/:id", (req, res) => {
     });
 });
 
-// // ------------------------> ADD DATA TO DB
-// router.post("/", (req, res) => {
-//   const user = req.body;
-//   console.log(user);
+// ------------------------> UPDATE DATA IN DB
+router.put("/:id", (req, res) => {
+  const { id } = req.params;
+  const changes = req.body;
 
-//   users.add(user)
-//     .then((ids) => {
-//       console.log(ids);
-//       res.status(201).json({ created: ids[0] });
-//     })
-//     .catch((err) => {
-//       res.status(500).json({ message: "Failed to create new user!" });
-//     });
-// });
-
-// // ------------------------> UPDATE DATA IN DB
-// router.put("/:id", (req, res) => {
-//   const { id } = req.params;
-//   const changes = req.body;
-
-//   users.update(id, changes)
-//     .then((user) => {
-//       if (user) {
-//         res.status(200).json(user);
-//       } else {
-//         res
-//           .status(404)
-//           .json({ errMessage: `Could not find user with given id:${id}` });
-//       }
-//     })
-//     .catch((err) => {
-//       res.status(500).json({ errMessage: "Failed to update users!" });
-//     });
-// });
+  Users.update(id, changes)
+    .then((user) => {
+      if (user) {
+        req.session.user = {
+          id: user.id,
+          username: user.username,
+        };
+        res.status(200).json(user);
+      } else {
+        res
+          .status(404)
+          .json({ errMessage: `Could not find user with given id:${id}` });
+      }
+    })
+    .catch((err) => {
+      res.status(500).json({ errMessage: "Failed to update users!" });
+    });
+});
 
 // // ------------------------> DELETE DATA IN DB
 // router.delete("/:id", async (req, res) => {

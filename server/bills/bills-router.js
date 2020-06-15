@@ -1,10 +1,13 @@
 const express = require("express");
 
 const Bills = require("../bills/bills-model.js");
+const Users = require("../users/users-model.js");
+
+const admin = require("../auth/admin-middleware.js");
 
 const router = express.Router();
 
-router.get("/", (req, res) => {
+router.get("/", admin, (req, res) => {
   Bills.find()
     .then((bills) => {
       res.status(200).json(bills);
@@ -31,9 +34,42 @@ router.get("/:id", (req, res) => {
     });
 });
 
+//******************** GET USER BILLS ******************/
+router.get("/user/:id", (req, res) => {
+  const { id } = req.params;
+
+  console.log(req.session.user);
+  console.log({ current_user: id });
+  Users.findById(id)
+    .then((user) => {
+      console.log("user list", user);
+      if (!user) {
+        res.status(404).json({
+          message: `The user with the specified id: ${id} does not exist.`,
+        });
+      } else if (req.session.user.id != id) {
+        res
+          .status(401)
+          .json({ message: `Not Authorized to access this resource!` });
+      } else {
+        Bills.findBillsByUser(id).then((bills) => {
+          user.bills = bills;
+          res.status(200).json(user);
+        });
+      }
+    })
+
+    .catch(() => {
+      res.status(500).json({
+        message: `The specified user ${id}'s bills(s) could not be retrieved.`,
+      });
+    });
+});
+
 // ------------------------> ADD DATA TO DB
 router.post("/", (req, res) => {
   const bill = req.body;
+  bill.user_id = req.session.user.id;
   console.log(bill);
 
   Bills.add(bill)
@@ -53,12 +89,16 @@ router.put("/:id", (req, res) => {
 
   Bills.update(id, changes)
     .then((bill) => {
-      if (bill) {
-        res.status(200).json(bill);
-      } else {
+      if (!bill) {
         res
           .status(404)
-          .json({ errMessage: `Could not find bill with given id:${id}` });
+          .json({ errMessage: `Could not find bill with given id: ${id}` });
+      } else if (req.session.user.id != id) {
+        res
+          .status(401)
+          .json({ message: `Not Authorized to access this resource!` });
+      } else {
+        res.status(200).json(bill);
       }
     })
     .catch((err) => {
@@ -71,12 +111,15 @@ router.delete("/:id", async (req, res) => {
   const { id } = req.params;
 
   Bills.remove(id)
-
     .then((count) => {
       if (!count) {
         return res
           .status(404)
           .json({ message: `Bill with id: ${id} does not Exist!` });
+      } else if (req.session.user.id != id) {
+        res
+          .status(401)
+          .json({ message: `Not Authorized to access this resource!` });
       } else {
         console.log(count);
         res
