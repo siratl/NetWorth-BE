@@ -54,34 +54,4 @@ server.use("/api/bills", restricted, billsRouter);
 server.use("/api/bank", restricted, bankRouter);
 server.use("/api/investments", restricted, investmentsRouter);
 
-server.post("/hobbits", (req, res) => {
-  const hobbit = req.body;
-  hobbit.id = nextId++;
-
-  hobbits.push(hobbit);
-  res.status(201).send(hobbits);
-});
-
-server.put("/hobbits/:id", (req, res) => {
-  const hobbit = hobbits.find((h) => h.id == req.params.id);
-
-  if (!hobbit) {
-    res.status(404).json({ message: "Hobbit does not exist" });
-  } else {
-    // modify the existing hobbit
-    Object.assign(hobbit, req.body);
-
-    res.status(200).json(hobbit);
-  }
-});
-
-server.delete("/hobbits/:id", (req, res) => {
-  const id = req.params.id;
-  // or we could destructure it like so: const { id } = req.params;
-  res.status(200).json({
-    url: `/hobbits/${id}`,
-    operation: `DELETE for hobbit with id ${id}`,
-  });
-});
-
 module.exports = server;
