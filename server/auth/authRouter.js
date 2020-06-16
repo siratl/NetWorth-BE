@@ -31,19 +31,19 @@ router.post("/login", (req, res) => {
 
   Users.findBy({ username })
     .then(([user]) => {
-      if (req.session.user && req.session.user.username === username) {
-        res.status(406).json({ message: `A user is already logged in!` });
-      } else if (user && bcrypt.compareSync(password, user.password)) {
-        console.log(user);
+      //   if (req.session.user && req.session.user.username === username) {
+      //     res.status(406).json({ message: `A user is already logged in!` });
+      //   } else
+      if (user && bcrypt.compareSync(password, user.password)) {
         req.session.user = {
           id: user.id,
           username: user.username,
           email: user.email,
         };
 
-        res
-          .status(200)
-          .json({ message: `Welcome ${user.first_name} ${user.last_name}!` });
+        res.status(200).json({
+          message: `Welcome ${user.first_name} ${user.last_name}!`,
+        });
       } else {
         res.status(401).json({ message: `Invalid credentials provided` });
       }

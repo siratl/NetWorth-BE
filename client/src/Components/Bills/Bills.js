@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import Calendar from 'react-calendar';
-import moment from 'moment';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import Calendar from "react-calendar";
+import moment from "moment";
 
 import {
   Button,
@@ -15,14 +15,14 @@ import {
   Label,
   Input,
   CustomInput,
-} from 'reactstrap';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+} from "reactstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faHome,
   faBars,
   faPlusCircle,
   faMoneyBillWave,
-} from '@fortawesome/free-solid-svg-icons';
+} from "@fortawesome/free-solid-svg-icons";
 
 function Bills(props) {
   const { push } = props.history;
@@ -35,8 +35,8 @@ function Bills(props) {
 
   // ------------------------------> Form State <------------------------ //
   const [formData, setFormData] = useState({
-    name: '',
-    date: moment().format('YYYY-MM-DD'),
+    name: "",
+    date: moment().format("YYYY-MM-DD"),
     amount: 0,
     repeat: false,
     paid: false,
@@ -60,21 +60,24 @@ function Bills(props) {
   // --------------------> Bills State <-------------------------------- //
   const [billsData, setBillsData] = useState([]);
   useEffect(() => {
-    axios.get('http://127.0.0.1:5000/api/bills').then((res) => {
-      console.log(res.data);
-      setBillsData(res.data);
+    const id = localStorage.getItem("id");
+    console.log("user id", id);
+    console.log("us", axios.get(`http://127.0.0.1:5000/api/bills/user/${id}`));
+    axios.get(`http://127.0.0.1:5000/api/bills/user/${id}`).then((res) => {
+      console.log("bills data", res.data);
+      //setBillsData(res.data);
     });
   }, []);
 
   const addBill = (event) => {
     // ----------------------------------------> INSERT TRY CATCH HERE
     if (formData.billName.length === 0 || formData.amount === 0) {
-      return alert('No input!');
+      return alert("No input!");
     } else {
       formData.amount = Number(formData.amount);
       billsData.push(formData);
     }
-    console.log('This is Data: ', formData.billName);
+    console.log("This is Data: ", formData.billName);
     toggle();
   };
 
@@ -86,17 +89,17 @@ function Bills(props) {
 
   // ------------------------------> Bill Item Click <---------------------- //
   const itemClick = (ev) => {
-    console.log('I have been clicked');
+    console.log("I have been clicked");
   };
 
   // ------------------------------> Render Bills <---------------------- //
   return (
     <div className='mainContainer'>
       <div className='header'>
-        <FontAwesomeIcon id='home' onClick={() => push('/')} icon={faHome} />
+        <FontAwesomeIcon id='home' onClick={() => push("/")} icon={faHome} />
         <h2>Bills</h2>
         <FontAwesomeIcon
-          id={isSideBarOpen ? 'hidden' : 'menu'}
+          id={isSideBarOpen ? "hidden" : "menu"}
           onClick={sideBarToggle}
           icon={faBars}
         />
@@ -105,8 +108,8 @@ function Bills(props) {
       {/* ----------------------- Totals ------------------ */}
       <div className='totals'>
         <span>
-          Total Bills{' '}
-          <p>${sum.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</p>
+          Total Bills{" "}
+          <p>${sum.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</p>
         </span>
         <span>
           Unpaid Bills<p>$0</p>
@@ -146,9 +149,9 @@ function Bills(props) {
                 <Input
                   onChange={onInputChange}
                   type='date'
-                  name='dueDate'
+                  name='date'
                   id='inputDueDate'
-                  value={moment(date).format('YYYY-MM-DD')}
+                  value={moment(date).format("YYYY-MM-DD")}
                 />
               </FormGroup>
 
@@ -181,7 +184,7 @@ function Bills(props) {
                     name='repeat'
                     // checked={formData.repeat}
                     onChange={onCheckboxChange}
-                  />{' '}
+                  />{" "}
                   <span id='inputRepeatLabel'>Recurring</span>
                 </Label>
               </FormGroup>
@@ -190,7 +193,7 @@ function Bills(props) {
           <ModalFooter>
             <Button color='primary' onClick={addBill}>
               Submit
-            </Button>{' '}
+            </Button>{" "}
             <Button color='secondary' onClick={toggle}>
               Cancel
             </Button>
@@ -214,7 +217,7 @@ function Bills(props) {
               <tr key={data.id} onClick={itemClick}>
                 <th scope='row'>{data.id}</th>
                 <td>{data.name}</td>
-                <td>{moment(data.date).format('YY-MM-DD')}</td>
+                <td>{moment(data.date).format("YY-MM-DD")}</td>
                 <td>${data.amount}</td>
               </tr>
             ))}
