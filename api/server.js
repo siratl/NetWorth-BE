@@ -22,9 +22,10 @@ const sessionConfig = {
   saveUninitialized: true,
   cookie: {
     maxAge: 1000 * 60 * 60,
-    secure: process.env.SECURE,
+    secure: false,
     httpOnly: true,
   },
+
   store: new KnexStore({
     knex,
     tablename: "session",
