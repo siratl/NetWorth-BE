@@ -16,13 +16,13 @@ const investmentsRouter = require("../invest/investments-router.js");
 const knex = require("../data/db-config.js");
 
 const sessionConfig = {
-  name: "monster",
+  name: "networth",
   secret: process.env.COOKIE_SECRET || "this secret",
   resave: false,
   saveUninitialized: true,
   cookie: {
     maxAge: 1000 * 60 * 60,
-    secure: false, // process.env.SECURE,
+    secure: process.env.SECURE,
     httpOnly: true,
   },
   store: new KnexStore({
