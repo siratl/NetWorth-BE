@@ -1,16 +1,17 @@
-import React, { useState } from 'react';
-import moment from 'moment';
-import './App.css';
-import 'react-calendar/dist/Calendar.css';
-import { Route } from 'react-router-dom';
-import Dashboard from './Components/Dashboard/Dashboard.js';
-import Bills from './Components/Bills/Bills.js';
-import Budget from './Components/Budget/Budget.js';
-import Bank from './Components/Bank/Bank.js';
-import Investments from './Components/Investments/Investments.js';
-import SideBar from './Components/Sidebar/SideBar.js';
-import Backdrop from './Components/Backdrop/Backdrop.js';
-import Auth from './Components/Auth/Auth.js';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import moment from "moment";
+import "./App.css";
+import "react-calendar/dist/Calendar.css";
+import { Route } from "react-router-dom";
+import Dashboard from "./Components/Dashboard/Dashboard.js";
+import Bills from "./Components/Bills/Bills.js";
+import Budget from "./Components/Budget/Budget.js";
+import Bank from "./Components/Bank/Bank.js";
+import Investments from "./Components/Investments/Investments.js";
+import SideBar from "./Components/Sidebar/SideBar.js";
+import Backdrop from "./Components/Backdrop/Backdrop.js";
+import Auth from "./Components/Auth/Auth.js";
 
 function App(props) {
   const [isSideBarOpen, setIsSideBarOpen] = useState(false);
@@ -33,6 +34,23 @@ function App(props) {
     setDate(date);
   };
 
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userData, setUserData] = useState({});
+
+  // useEffect(() => {
+  //   console.log("app render", userData);
+  //   axios
+  //     .get(`http://127.0.0.1:5000/api/bills/user/${userData.id}`)
+  //     .then((res) => {
+  //       console.log("response", res);
+  //     });
+  // }, []);
+
+  const retrieveUser = (data) => {
+    setUserData(data);
+  };
+
+  console.log();
   return (
     <div className='App'>
       <SideBar
@@ -40,7 +58,9 @@ function App(props) {
         sideBarToggleClose={sideBarToggleClose}
       />
       {backdrop}
+
       <Route exact path='/' component={Dashboard} />
+
       <Route
         path='/bills'
         render={(props) => (
@@ -53,6 +73,7 @@ function App(props) {
           />
         )}
       />
+
       <Route
         sideBarToggle={sideBarToggle}
         path='/budget'
@@ -64,6 +85,7 @@ function App(props) {
           />
         )}
       />
+
       <Route
         sideBarToggle={sideBarToggle}
         path='/bank'
@@ -89,15 +111,8 @@ function App(props) {
       />
 
       <Route
-        sideBarToggle={sideBarToggle}
         path='/login'
-        render={(props) => (
-          <Auth
-            {...props}
-            isSideBarOpen={isSideBarOpen}
-            sideBarToggle={sideBarToggle}
-          />
-        )}
+        render={(props) => <Auth {...props} retrieveUser={retrieveUser} />}
       />
     </div>
   );

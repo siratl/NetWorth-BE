@@ -17,7 +17,7 @@ const knex = require("../data/db-config.js");
 
 const sessionConfig = {
   name: "monster",
-  secret: process.env.COOKIE_SECRET,
+  secret: process.env.COOKIE_SECRET || "this secret",
   resave: false,
   saveUninitialized: true,
   cookie: {
@@ -42,7 +42,7 @@ server.use(express.json());
 server.use(session(sessionConfig));
 
 // ----------------------------- SERVER ROOT
-server.get("/", (req, res) => {
+server.get("/", restricted, (req, res) => {
   res.status(200).send("<h1>Net_Worth App</h1>");
 });
 
