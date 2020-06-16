@@ -35,11 +35,7 @@ router.post("/login", (req, res) => {
       //     res.status(406).json({ message: `A user is already logged in!` });
       //   } else
       if (user && bcrypt.compareSync(password, user.password)) {
-        req.session.user = {
-          id: user.id,
-          username: user.username,
-          email: user.email,
-        };
+        req.session.user = user;
 
         res.status(200).json({
           message: `Welcome ${user.first_name} ${user.last_name}!`,
